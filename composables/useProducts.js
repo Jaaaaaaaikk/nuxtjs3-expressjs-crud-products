@@ -1,8 +1,4 @@
 
-
-
-
-
 import { ref } from 'vue';
 
 export const useProducts = () => {
@@ -13,10 +9,17 @@ export const useProducts = () => {
       const response = await fetch('http://localhost:3001/api/products');
       products.value = await response.json();
     } catch (error) {
-      console.error('Failed to fetch products:', error);
+      if (error.name === 'TypeError') {
+        console.error('Failed to fetch products:', error);
+      } else if (error.name === 'FetchError') {
+        if (error.code === 'ECONNREFUSED') {
+          console.error('Failed to connect to the server:', error);
+        } else {
+          console.error('Failed to fetch products:', error);
+        }
+      }
     }
   };
-
   const addProduct = async (product) => {
     try {
       const response = await fetch('http://localhost:3001/api/products', {
