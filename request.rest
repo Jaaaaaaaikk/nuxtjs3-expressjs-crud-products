@@ -1,0 +1,22 @@
+POST  http://localhost:3001/api/products
+Content-Type: application/json
+
+{
+    "id": 3,
+    "name": "piattos",
+    "price": "5",
+    "quantity": 2
+}
+
+###
+
+GET http://localhost:3001/api/products
+
+###
+
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+    "token": "hello"
+}
